@@ -79,7 +79,7 @@ const TOOLS = [
 ]
 
 const STEPS = [
-  { emoji: '🔍', title: 'Find a prompt',  text: 'Search or browse 12,000+ prompts by category.' },
+  { emoji: '🔍', title: 'Find a prompt',  text: 'Search or browse 6,50,000+ prompts by category.' },
   { emoji: '✏️', title: 'Fill the blanks', text: 'Add your product, niche & audience.' },
   { emoji: '📋', title: 'Copy & paste',    text: 'One tap. Paste into ChatGPT, Claude or Gemini.' },
   { emoji: '🚀', title: 'Post & grow',     text: 'Ship content that actually works.' },

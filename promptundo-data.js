@@ -7094,7 +7094,7 @@
   {
     "emoji": "🔍",
     "title": "Find a prompt",
-    "text": "Search or browse 12,000+ prompts by category."
+    "text": "Search or browse 6,50,000+ prompts by category."
   },
   {
     "emoji": "✏️",

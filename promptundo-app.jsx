@@ -272,7 +272,15 @@ function Footer() {
 
 // ── App ───────────────────────────────────────────────────────────────────────
 function App() {
-  const { CATEGORIES, PROMPTS, BLUEPRINTS, NICHES, HINTS, TOOLS, STEPS, VIRTUAL_TOTAL } = window.PA;
+  const pa = window.PA || {};
+  const CATEGORIES = pa.CATEGORIES || [];
+  const PROMPTS = pa.PROMPTS || [];
+  const BLUEPRINTS = pa.BLUEPRINTS || [];
+  const NICHES = pa.NICHES || [];
+  const HINTS = pa.HINTS || {};
+  const TOOLS = pa.TOOLS || [];
+  const STEPS = pa.STEPS || [];
+  const VIRTUAL_TOTAL = pa.VIRTUAL_TOTAL || PROMPTS.length;
   const [query, setQuery] = useState('');
   const [activeCat, setActiveCat] = useState('all');
   const [openPrompt, setOpenPrompt] = useState(null);
@@ -391,17 +399,19 @@ function App() {
       result.push(p);
     }
     let remaining = limit - result.length;
-    outer:
-    for (const bp of matchedBPs) {
-      for (const n of effectiveNiches) {
-        if (remaining <= 0) break outer;
+    let done = false;
+    for (let bi = 0; bi < matchedBPs.length && !done; bi++) {
+      const bp = matchedBPs[bi];
+      for (let ni = 0; ni < effectiveNiches.length && !done; ni++) {
+        const n = effectiveNiches[ni];
+        if (remaining <= 0) { done = true; break; }
         result.push({
           id: 'vbp-' + bp.id + '-' + n[0],
           cat: bp.cat,
           title: bp.title + ' — ' + n[1],
-          desc: bp.desc.replaceAll('{NAME}', n[1]).replaceAll('{LABEL}', n[2]).replaceAll('{AUD}', n[3]),
-          prompt: bp.body.replaceAll('{NAME}', n[1]).replaceAll('{LABEL}', n[2]).replaceAll('{AUD}', n[3]),
-          tags: [...bp.tags, n[0]],
+          desc: bp.desc.replace(/\{NAME\}/g, n[1]).replace(/\{LABEL\}/g, n[2]).replace(/\{AUD\}/g, n[3]),
+          prompt: bp.body.replace(/\{NAME\}/g, n[1]).replace(/\{LABEL\}/g, n[2]).replace(/\{AUD\}/g, n[3]),
+          tags: bp.tags.concat([n[0]]),
         });
         remaining--;
       }
