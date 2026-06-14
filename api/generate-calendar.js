@@ -89,7 +89,7 @@ async function callModel(intent) {
   return JSON.parse(text);
 }
 
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
   if (req.method !== 'POST') return json(res, 405, { error: 'Method not allowed' });
   if (!SUPABASE_URL || !SERVICE_KEY || !GEMINI_API_KEY) {
     return json(res, 503, { error: 'Service not configured' });

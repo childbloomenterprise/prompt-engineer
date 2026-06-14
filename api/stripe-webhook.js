@@ -11,13 +11,13 @@
  * body parser below so we can read the raw bytes.
  */
 
-const Stripe = require('stripe'); // add "stripe" to package.json deps before deploy
+import Stripe from 'stripe';
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', { apiVersion: '2024-06-20' });
 const WH_SECRET = process.env.STRIPE_WEBHOOK_SECRET;
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-module.exports.config = { api: { bodyParser: false } };
+export const config = { api: { bodyParser: false } };
 
 function readRaw(req) {
   return new Promise((resolve, reject) => {
@@ -39,7 +39,7 @@ async function setPlan(userId, plan) {
   });
 }
 
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
   if (req.method !== 'POST') { res.status(405).end('Method not allowed'); return; }
   if (!WH_SECRET || !SUPABASE_URL || !SERVICE_KEY) { res.status(503).end('Not configured'); return; }
 
