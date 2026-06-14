@@ -1,6 +1,12 @@
 /* PromptUndo — main app */
 const { useState, useEffect, useMemo, useRef, useDeferredValue } = React;
 
+function fmtBig(n) {
+  if (n >= 100000) return (n / 100000).toFixed(1).replace(/\.0$/, '') + 'L';
+  if (n >= 1000) return Math.round(n / 1000) + 'K';
+  return String(n);
+}
+
 // ── Scroll reveal wrapper ────────────────────────────────────────────────────
 function Reveal({ children, delay = 0, className = '', tag = 'div' }) {
   const ref = useRef(null);
@@ -111,7 +117,7 @@ function CategoryBar({ categories, counts, active, onSelect }) {
           <button key={c.id} className={'pa-pill' + (active === c.id ? ' is-active' : '')} onClick={() => onSelect(c.id)}>
             <Icon name={c.id} size={15} className="pa-pill-icon" />
             <span>{c.name}</span>
-            <span className="pa-pill-count">{counts[c.id] || 0}</span>
+            <span className="pa-pill-count">{fmtBig(counts[c.id] || 0)}</span>
           </button>
         ))}
       </div>
@@ -120,14 +126,14 @@ function CategoryBar({ categories, counts, active, onSelect }) {
 }
 
 // ── Hero ───────────────────────────────────────────────────────────────────────
-function Hero({ query, setQuery, total }) {
+function Hero({ query, setQuery, totalLabel }) {
   const chips = ['Free forever', 'No login', 'Hinglish-friendly', '₹0'];
   return (
     <header className="pa-hero">
       <div className="pa-aurora"><span className="pa-aurora-a" /><span className="pa-aurora-b" /><span className="pa-aurora-c" /></div>
       <div className="pa-hero-inner">
         <div className="pa-hero-copy">
-          <span className="pa-eyebrow"><Icon name="spark" size={13} /> <strong style={{ fontWeight: 700 }}>{total}+</strong>&nbsp;free prompts · no sign-up</span>
+          <span className="pa-eyebrow"><Icon name="spark" size={13} /> <strong style={{ fontWeight: 700 }}>{totalLabel}+</strong>&nbsp;free prompts · no sign-up</span>
           <h1 className="pa-hero-title">
             Stop fighting with AI.<br />
             <span className="pa-hero-title-2">Just copy a prompt that works.</span>
@@ -143,7 +149,7 @@ function Hero({ query, setQuery, total }) {
               placeholder="Search “Reel hook”, “Diwali sale”, “caption”…" />
             {query
               ? <button className="pa-search-clear" onClick={() => setQuery('')} aria-label="Clear"><Icon name="close" size={13} /></button>
-              : <kbd className="pa-search-kbd">12K+</kbd>}
+              : <kbd className="pa-search-kbd">{totalLabel}+</kbd>}
           </div>
 
           <div className="pa-trust">
@@ -162,7 +168,7 @@ function Hero({ query, setQuery, total }) {
 // ── Credibility strip ──────────────────────────────────────────────────────────
 function Stats() {
   const items = [
-    { n: 12000, s: '+', label: 'ready-to-use prompts' },
+    { n: window.PA.VIRTUAL_TOTAL, s: '+', label: 'ready-to-use prompts' },
     { n: 16, s: '', label: 'creator categories' },
     { n: 0, s: '', label: 'logins or sign-ups' },
     { n: 0, s: '', label: 'rupees, forever', prefix: '₹' },
@@ -266,13 +272,15 @@ function Footer() {
 
 // ── App ───────────────────────────────────────────────────────────────────────
 function App() {
-  const { CATEGORIES, PROMPTS, TOOLS, STEPS, HINTS } = window.PA;
+  const { CATEGORIES, PROMPTS, BLUEPRINTS, NICHES, HINTS, TOOLS, STEPS, VIRTUAL_TOTAL } = window.PA;
   const [query, setQuery] = useState('');
   const [activeCat, setActiveCat] = useState('all');
   const [openPrompt, setOpenPrompt] = useState(null);
   const [scrolled, setScrolled] = useState(false);
   const PAGE = 60;
   const [limit, setLimit] = useState(PAGE);
+
+  const totalLabel = fmtBig(VIRTUAL_TOTAL);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -281,116 +289,173 @@ function App() {
   }, []);
 
   const catMap = useMemo(() => { const m = {}; CATEGORIES.forEach(c => m[c.id] = c); return m; }, []);
+
+  // Category counts: authored per cat + blueprints per cat × total niches
   const counts = useMemo(() => {
-    const c = { all: PROMPTS.length };
+    const bpPerCat = {};
+    BLUEPRINTS.forEach(bp => { bpPerCat[bp.cat] = (bpPerCat[bp.cat] || 0) + 1; });
+    const c = { all: VIRTUAL_TOTAL };
     PROMPTS.forEach(p => { c[p.cat] = (c[p.cat] || 0) + 1; });
+    CATEGORIES.forEach(cat => {
+      if (cat.id === 'all') return;
+      c[cat.id] = (c[cat.id] || 0) + (bpPerCat[cat.id] || 0) * NICHES.length;
+    });
     return c;
   }, []);
 
-  // Build a lowercased search index ONCE (not per keystroke) so typing stays
-  // smooth even across 12k+ prompts. Each entry caches what we search against.
-  const searchIndex = useMemo(() => {
+  // Authored search index — built once, includes hint text so “diwali” finds [FESTIVAL] prompts
+  const authoredIndex = useMemo(() => {
     const hints = HINTS || {};
     const re = /\[([A-Z0-9_ ]+)\]/g;
     return PROMPTS.map(p => {
       const title = p.title.toLowerCase();
       const tags = p.tags.join(' ').toLowerCase();
-      const cat = catMap[p.cat] ? catMap[p.cat].name.toLowerCase() : '';
-      // also index each blank's example hint (so "diwali" finds [FESTIVAL] prompts,
-      // "hinglish" finds tone blanks, "₹499" finds price blanks, etc.)
       let hintText = '';
       const seen = new Set();
       let m; re.lastIndex = 0;
       while ((m = re.exec(p.prompt)) !== null) {
         const tok = m[1];
-        if (seen.has(tok)) continue;
-        seen.add(tok);
+        if (seen.has(tok)) continue; seen.add(tok);
         const h = hints[tok];
         if (h && h.hint) hintText += ' ' + h.hint;
       }
-      const hay = title + ' ' + p.desc.toLowerCase() + ' ' + tags + ' ' + cat + ' ' +
+      const hay = title + ' ' + p.desc.toLowerCase() + ' ' + tags + ' ' +
         p.prompt.toLowerCase() + ' ' + hintText.toLowerCase();
       return { p, title, tags, hay };
     });
-  }, [catMap]);
+  }, []);
 
-  // Defer the heavy filter so the input never lags while you type (React keeps
-  // showing the previous results until the new ones are ready).
+  // Blueprint search index — built once (117 entries, trivially fast)
+  const bpIndex = useMemo(() => BLUEPRINTS.map(bp => ({
+    bp,
+    hay: (bp.title + ' ' + bp.desc + ' ' + bp.body + ' ' + bp.tags.join(' ')).toLowerCase(),
+    title: bp.title.toLowerCase(),
+    tags: bp.tags.join(' ').toLowerCase(),
+  })), []);
+
   const deferredQuery = useDeferredValue(query);
 
-  const filtered = useMemo(() => {
-    // multi-word keyword search across title, description, tags, category AND the
-    // full prompt text — every word must match (AND), so "diwali caption" narrows.
+  // Virtual filter: search authored prompts + blueprint templates + niche names
+  const { authoredFiltered, matchedBPs, effectiveNiches } = useMemo(() => {
     const words = deferredQuery.trim().toLowerCase().split(/\s+/).filter(Boolean);
-    const scored = [];
-    for (let i = 0; i < searchIndex.length; i++) {
-      const it = searchIndex[i];
+
+    // Authored prompts (same scored search as before)
+    const af = [];
+    for (const it of authoredIndex) {
       if (activeCat !== 'all' && it.p.cat !== activeCat) continue;
-      if (!words.length) { scored.push({ p: it.p, s: 0 }); continue; }
+      if (!words.length) { af.push({ p: it.p, s: 0 }); continue; }
       let ok = true;
       for (const w of words) { if (!it.hay.includes(w)) { ok = false; break; } }
       if (!ok) continue;
-      // light relevance score: title/tag hits rank above body-only hits
       let s = 0;
       for (const w of words) { if (it.title.includes(w)) s += 3; if (it.tags.includes(w)) s += 2; }
-      scored.push({ p: it.p, s });
+      af.push({ p: it.p, s });
     }
-    if (words.length) scored.sort((a, b) => b.s - a.s); // best matches first
-    return scored.map(x => x.p);
-  }, [deferredQuery, activeCat, searchIndex]);
+    if (words.length) af.sort((a, b) => b.s - a.s);
 
-  // reset how many are shown whenever the result set changes
+    // Blueprint filter (searches title + desc + body + tags)
+    const bps = [];
+    for (const it of bpIndex) {
+      if (activeCat !== 'all' && it.bp.cat !== activeCat) continue;
+      if (!words.length) { bps.push(it.bp); continue; }
+      let ok = true;
+      for (const w of words) { if (!it.hay.includes(w)) { ok = false; break; } }
+      if (ok) bps.push(it.bp);
+    }
+
+    // Niche filter: if query matches a city/niche name, narrow to those niches
+    // so “yoga mumbai” shows yoga prompts for Mumbai specifically
+    let effectiveNiches;
+    if (!words.length) {
+      effectiveNiches = NICHES;
+    } else {
+      const hits = NICHES.filter(n => words.some(w =>
+        n[1].toLowerCase().includes(w) || n[2].toLowerCase().includes(w)
+      ));
+      effectiveNiches = hits.length > 0 ? hits : NICHES;
+    }
+
+    return { authoredFiltered: af, matchedBPs: bps, effectiveNiches };
+  }, [deferredQuery, activeCat, authoredIndex, bpIndex]);
+
   useEffect(() => { setLimit(PAGE); }, [deferredQuery, activeCat]);
-  const visible = filtered.slice(0, limit);
-  const stale = query !== deferredQuery; // true for the brief moment results are catching up
+
+  const totalFiltered = authoredFiltered.length + matchedBPs.length * effectiveNiches.length;
+  const stale = query !== deferredQuery;
+
+  // Materialize only visible cards — authored first, then blueprint × niche on demand
+  const visible = useMemo(() => {
+    const result = [];
+    for (const { p } of authoredFiltered) {
+      if (result.length >= limit) break;
+      result.push(p);
+    }
+    let remaining = limit - result.length;
+    outer:
+    for (const bp of matchedBPs) {
+      for (const n of effectiveNiches) {
+        if (remaining <= 0) break outer;
+        result.push({
+          id: 'vbp-' + bp.id + '-' + n[0],
+          cat: bp.cat,
+          title: bp.title + ' — ' + n[1],
+          desc: bp.desc.replaceAll('{NAME}', n[1]).replaceAll('{LABEL}', n[2]).replaceAll('{AUD}', n[3]),
+          prompt: bp.body.replaceAll('{NAME}', n[1]).replaceAll('{LABEL}', n[2]).replaceAll('{AUD}', n[3]),
+          tags: [...bp.tags, n[0]],
+        });
+        remaining--;
+      }
+    }
+    return result;
+  }, [authoredFiltered, matchedBPs, effectiveNiches, limit]);
 
   return (
-    <div id="top">
+    <div id=”top”>
       <nav className={'pa-nav' + (scrolled ? ' is-scrolled' : '')}>
-        <div className="pa-nav-inner">
-          <div className="pa-logo"><span className="pa-logo-mark"><Icon name="spark" size={16} /></span> PromptUndo</div>
-          <div className="pa-nav-links">
-            <a href="#how">How it works</a>
-            <a href="#tools">Tools</a>
-            <span className="pa-nav-free"><Icon name="infinity" size={13} /> Free forever</span>
+        <div className=”pa-nav-inner”>
+          <div className=”pa-logo”><span className=”pa-logo-mark”><Icon name=”spark” size={16} /></span> PromptUndo</div>
+          <div className=”pa-nav-links”>
+            <a href=”#how”>How it works</a>
+            <a href=”#tools”>Tools</a>
+            <span className=”pa-nav-free”><Icon name=”infinity” size={13} /> Free forever</span>
           </div>
         </div>
       </nav>
 
-      <Hero query={query} setQuery={setQuery} total={12000} />
+      <Hero query={query} setQuery={setQuery} totalLabel={totalLabel} />
       <Stats />
       <CategoryBar categories={CATEGORIES} counts={counts} active={activeCat} onSelect={setActiveCat} />
 
-      <main className="pa-main">
-        <div className="pa-results-bar">
-          <span className="pa-results-count">
-            <strong>{filtered.length}</strong> {filtered.length === 1 ? 'prompt' : 'prompts'}
-            {activeCat !== 'all' && <span className="pa-results-cat"> in {catMap[activeCat].name}</span>}
-            {query && <span className="pa-results-cat"> for “{query}”</span>}
+      <main className=”pa-main”>
+        <div className=”pa-results-bar”>
+          <span className=”pa-results-count”>
+            <strong>{totalFiltered > 9999 ? fmtBig(totalFiltered) + '+' : totalFiltered}</strong> {totalFiltered === 1 ? 'prompt' : 'prompts'}
+            {activeCat !== 'all' && <span className=”pa-results-cat”> in {catMap[activeCat].name}</span>}
+            {query && <span className=”pa-results-cat”> for “{query}”</span>}
           </span>
         </div>
 
-        {filtered.length === 0 ? (
-          <div className="pa-empty">
-            <div className="pa-empty-icon"><Icon name="search" size={26} /></div>
-            <h3 className="pa-empty-title">No prompts match that yet</h3>
-            <p className="pa-empty-text">Try a broader keyword — or browse all 16 categories.</p>
-            <button className="pa-btn pa-btn-primary" onClick={() => { setQuery(''); setActiveCat('all'); }}>
-              <Icon name="all" size={15} /> Show all prompts
+        {totalFiltered === 0 ? (
+          <div className=”pa-empty”>
+            <div className=”pa-empty-icon”><Icon name=”search” size={26} /></div>
+            <h3 className=”pa-empty-title”>No prompts match that yet</h3>
+            <p className=”pa-empty-text”>Try a broader keyword — or browse all 16 categories.</p>
+            <button className=”pa-btn pa-btn-primary” onClick={() => { setQuery(''); setActiveCat('all'); }}>
+              <Icon name=”all” size={15} /> Show all prompts
             </button>
           </div>
         ) : (
           <>
-            <div className="pa-grid" style={{ opacity: stale ? 0.55 : 1, transition: 'opacity .15s ease' }}>
+            <div className=”pa-grid” style={{ opacity: stale ? 0.55 : 1, transition: 'opacity .15s ease' }}>
               {visible.map((p, i) => (
                 <PromptCard key={p.id} prompt={p} category={catMap[p.cat]} index={i} onOpen={setOpenPrompt} />
               ))}
             </div>
-            {filtered.length > limit && (
+            {totalFiltered > limit && (
               <div style={{ textAlign: 'center', marginTop: 28 }}>
-                <button className="pa-btn pa-btn-ghost" style={{ display: 'inline-flex', flex: 'none', padding: '0 22px' }}
+                <button className=”pa-btn pa-btn-ghost” style={{ display: 'inline-flex', flex: 'none', padding: '0 22px' }}
                   onClick={() => setLimit(l => l + PAGE)}>
-                  <Icon name="layers" size={15} /> Show more ({filtered.length - limit} left)
+                  <Icon name=”layers” size={15} /> Show more
                 </button>
               </div>
             )}

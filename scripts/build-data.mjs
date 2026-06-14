@@ -11,7 +11,7 @@ import { readdir, writeFile } from 'node:fs/promises'
 import { pathToFileURL } from 'node:url'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { BLUEPRINTS, NICHES } from '../src/data/packs.js'
+import { BLUEPRINTS, NICHES, CITIES } from '../src/data/packs.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const ROOT = join(__dirname, '..')
@@ -175,27 +175,28 @@ for (const f of files) {
   }
 }
 
-// ── Expand niche packs: BLUEPRINTS × NICHES → ~1,000 niche-tailored prompts ──
-const fillNiche = (s, n) =>
-  s.replaceAll('{NAME}', n.name).replaceAll('{LABEL}', n.label).replaceAll('{AUD}', n.aud)
+// ── City-specific niche variants: 25 cities × 215 niches = 5,375 additional ─
+const ALL_NICHES = [
+  ...NICHES,
+  ...CITIES.flatMap(([cSlug, cName]) =>
+    NICHES.map(([slug, name, label, aud]) => [
+      `${cSlug}-${slug}`,
+      `${name} (${cName})`,
+      `${label} in ${cName}`,
+      `${aud} in ${cName}`,
+    ])
+  ),
+]
 
-let packCount = 0
-for (const bp of BLUEPRINTS) {
-  for (const t of NICHES) {
-    const n = Array.isArray(t) ? { slug: t[0], name: t[1], label: t[2], aud: t[3] } : t
-    all.push({
-      id: `bp-${bp.id}-${n.slug}`,
-      cat: bp.cat,
-      title: `${bp.title} — ${n.name}`,
-      desc: fillNiche(bp.desc, n),
-      prompt: normalize(fillNiche(bp.body, n)),
-      tags: [...bp.tags, n.slug],
-    })
-    packCount++
-  }
-}
+// ── Normalize blueprint bodies at build time ──────────────────────────────────
+const normalizedBPs = BLUEPRINTS.map(bp => ({
+  id: bp.id, cat: bp.cat, title: bp.title, desc: bp.desc, tags: bp.tags,
+  body: normalize(bp.body),
+}))
 
-// Stable sort by design category order
+const VIRTUAL_TOTAL = all.length + normalizedBPs.length * ALL_NICHES.length
+
+// Stable sort authored prompts by design category order
 all.sort((a, b) => (CAT_ORDER[a.cat] - CAT_ORDER[b.cat]))
 
 // Duplicate id check
@@ -216,24 +217,27 @@ const banner = `/* PromptUndo — data layer (AUTO-GENERATED — do not edit by 
    Source: src/data/prompts/*.js   ·   Regenerate: npm run data
    ${all.length} prompts across ${CATEGORIES.length - 1} categories. */`
 
-// Prompts compactly: one object per line (small file, still diff-friendly).
+// Authored prompts + blueprints + niches: one object per line (diff-friendly).
 const promptsJson = '[\n' + all.map((p) => '    ' + JSON.stringify(p)).join(',\n') + '\n  ]'
+const bpsJson = '[\n' + normalizedBPs.map((bp) => '    ' + JSON.stringify(bp)).join(',\n') + '\n  ]'
+const nichesJson = '[\n' + ALL_NICHES.map((n) => '    ' + JSON.stringify(n)).join(',\n') + '\n  ]'
 
 const body =
   `(function () {\n` +
   `  const CATEGORIES = ${JSON.stringify(CATEGORIES, null, 2)};\n\n` +
   `  const HINTS = ${JSON.stringify(HINTS, null, 2)};\n\n` +
   `  const PROMPTS = ${promptsJson};\n\n` +
+  `  const BLUEPRINTS = ${bpsJson};\n\n` +
+  `  const NICHES = ${nichesJson};\n\n` +
   `  const TOOLS = ${JSON.stringify(TOOLS, null, 2)};\n\n` +
   `  const STEPS = ${JSON.stringify(STEPS, null, 2)};\n\n` +
-  `  window.PA = { CATEGORIES, PROMPTS, HINTS, TOOLS, STEPS };\n` +
+  `  const VIRTUAL_TOTAL = ${VIRTUAL_TOTAL};\n\n` +
+  `  window.PA = { CATEGORIES, PROMPTS, BLUEPRINTS, NICHES, HINTS, TOOLS, STEPS, VIRTUAL_TOTAL };\n` +
   `})();\n`
 
 await writeFile(join(ROOT, 'promptundo-data.js'), banner + '\n' + body, 'utf8')
 
-const perCat = {}
-for (const p of all) perCat[p.cat] = (perCat[p.cat] || 0) + 1
-console.log(`✓ Wrote promptundo-data.js — ${all.length} prompts (${all.length - packCount} authored + ${packCount} niche-pack)`)
-console.log('  per category:', JSON.stringify(perCat))
-console.log('  unique blank tokens:', Object.keys(generatedHints).length, '| HINTS entries:', Object.keys(HINTS).length)
+console.log(`✓ Wrote promptundo-data.js — ${all.length} authored + ${normalizedBPs.length} blueprints × ${ALL_NICHES.length} niches = ${VIRTUAL_TOTAL.toLocaleString()} virtual prompts`)
+console.log(`  niches: ${NICHES.length} generic + ${ALL_NICHES.length - NICHES.length} city-specific (${CITIES.length} cities × ${NICHES.length} niches)`)
+console.log('  HINTS entries:', Object.keys(HINTS).length)
 if (dupes.length) { console.error('✗ duplicate ids present'); process.exit(1) }

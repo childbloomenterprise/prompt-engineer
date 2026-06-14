@@ -510,4 +510,370 @@ Include subject, setting, lighting, composition, style/medium, and quality keywo
     desc: 'Great interview questions for a {LABEL} podcast.',
     body: `My podcast covers {LABEL}, audience {AUD}. Guest: [GUEST]. Episode angle: [ANGLE].
 Give 12 great questions: a warm opener, 8 deep/story-driven ones (no yes/no), 2 my audience specifically wants answered, and a strong closer. Group by flow.` },
+
+  // ── Instagram (6 new) ──────────────────────────────────────────────────────
+  { id: 'ig-launch', cat: 'instagram', tags: ['launch', 'product'],
+    title: 'Product Launch Countdown',
+    desc: 'A 3-post launch sequence for {LABEL}.',
+    body: `Write a 3-post Instagram launch countdown for {LABEL} launching [PRODUCT] to {AUD}. Price: [PRICE].
+Post 1 (3 days before): tease with the problem [PROBLEM]. Post 2 (1 day): "Tomorrow" reveal without fully showing. Post 3 (launch day): full announcement + CTA. Each with caption + 5 hashtags.` },
+  { id: 'ig-behind', cat: 'instagram', tags: ['behind the scenes', 'authenticity'],
+    title: 'Behind-the-Scenes Post',
+    desc: 'A BTS caption that builds trust for {LABEL}.',
+    body: `Write a behind-the-scenes Instagram caption for {LABEL}, audience {AUD}. What I'm showing: [WHAT YOU DO].
+Warm and human — show the effort, not just the result. End with a question to drive comments. Add 5 relevant hashtags.` },
+  { id: 'ig-before-after', cat: 'instagram', tags: ['transformation', 'results'],
+    title: 'Before & After Caption',
+    desc: 'A transformation post for {LABEL}.',
+    body: `Write an Instagram before/after caption for {LABEL}. Transformation: [BEFORE → AFTER]. Client type: [CLIENT TYPE]. Duration: [DURATION].
+Lead with the after result, tell the before story, credit the process, end with a CTA for {AUD} who want the same result. Add 6 hashtags.` },
+  { id: 'ig-collab', cat: 'instagram', tags: ['collab', 'partnership'],
+    title: 'Collab Announcement',
+    desc: 'A joint-post caption for {LABEL} × another creator.',
+    body: `Write an Instagram collab announcement for {LABEL} partnering with [PARTNER]. Offer: [OFFER]. Audience: {AUD}.
+Exciting for both audiences. Mention the handle, what followers get, and a CTA. Add 5 hashtags each brand would use.` },
+  { id: 'ig-giveaway', cat: 'instagram', tags: ['giveaway', 'growth'],
+    title: 'Giveaway Post',
+    desc: 'A follow-and-tag giveaway for {LABEL}.',
+    body: `Write an Instagram giveaway post for {LABEL}. Prize: [PRIZE]. Rules: follow, like, tag a friend.
+Make the prize exciting, rules simple (3 steps max), mention the winner date + how they're picked. Add urgency and 5 hashtags.` },
+  { id: 'ig-cta-set', cat: 'instagram', tags: ['cta', 'conversion'],
+    title: 'DM & Link-in-Bio CTAs',
+    desc: '15 fresh CTA lines for {LABEL}.',
+    body: `Give 15 creative CTA lines for {LABEL}, audience {AUD}, goal [GOAL].
+Mix DM CTAs, link-in-bio CTAs, comment CTAs, and save CTAs. Each under 15 words. No "click the link in bio" clichés.` },
+
+  // ── Reels (6 new) ──────────────────────────────────────────────────────────
+  { id: 'reel-tutorial', cat: 'reels', tags: ['tutorial', 'value'],
+    title: 'Tutorial Reel Script',
+    desc: 'A step-by-step teaching Reel for {LABEL}.',
+    body: `Write a tutorial Reel script (under 60s) for {LABEL}: how to [SKILL OR TASK]. Audience: {AUD}.
+Hook: the result or a challenge. Steps: 3-5 quick actions with on-screen text. End: the payoff + CTA to [GOAL]. Include voiceover + text overlay notes.` },
+  { id: 'reel-mistake', cat: 'reels', tags: ['myth', 'education'],
+    title: '"Stop Doing This" Reel',
+    desc: 'A myth-busting mistake Reel for {LABEL}.',
+    body: `Write a "Stop doing this" Reel script for {LABEL}, audience {AUD}. The mistake/myth: [MISTAKE].
+Hook with the mistake in 2 seconds, reveal why it's wrong, show the right way, end with a save prompt. Voiceover + on-screen text. Under 45s.` },
+  { id: 'reel-dayinlife', cat: 'reels', tags: ['day in life', 'personal'],
+    title: 'Day in My Life Reel',
+    desc: 'A relatable DITL Reel for {LABEL}.',
+    body: `Write a "Day in my life as a [ROLE] in {LABEL}" Reel script for {AUD}. 4-5 scenes showing real moments of the work/lifestyle.
+Hook with an honest observation, show behind-the-scenes, include imperfection, end with a takeaway or CTA to [GOAL]. Under 60s.` },
+  { id: 'reel-transition', cat: 'reels', tags: ['trend', 'creative'],
+    title: 'Transition Reel Concepts',
+    desc: '5 transition-based Reel ideas for {LABEL}.',
+    body: `Give 5 Reel transition concepts for {LABEL}, audience {AUD}.
+Each: the before state, the transition action, the after reveal, and what it communicates. Focus on product reveal, transformation, or lifestyle contrast. Quick to film on a phone.` },
+  { id: 'reel-pov', cat: 'reels', tags: ['pov', 'relatable'],
+    title: 'POV Reel Ideas',
+    desc: '10 POV Reels for {LABEL}.',
+    body: `Give 10 POV Reel concepts for {LABEL}, audience {AUD}. Each a relatable situation your audience recognises.
+Include on-screen text + suggested mood. Mix funny, emotional, and aspirational. Make {AUD} think "this is me!"` },
+  { id: 'reel-question', cat: 'reels', tags: ['engagement', 'community'],
+    title: 'Comment-Bait Reel',
+    desc: 'Reels that start conversations for {LABEL}.',
+    body: `Write 5 short Reel scripts (each under 30s) that end with a question for {LABEL}, audience {AUD}. Topic: [TOPIC].
+Each: strong hook, clear opinion or fact, a question that drives debate or sharing. Aim for 100+ comments per Reel.` },
+
+  // ── YouTube (5 new) ────────────────────────────────────────────────────────
+  { id: 'yt-community', cat: 'youtube', tags: ['community post', 'engagement'],
+    title: 'YouTube Community Posts',
+    desc: '5 community post types for {LABEL}.',
+    body: `Write 5 YouTube Community posts for {LABEL}, audience {AUD}. Include:
+1 poll (a relevant question with options), 1 behind-the-scenes update, 1 milestone/throwback, 1 ask-me-anything prompt, and 1 exclusive preview of [UPCOMING CONTENT]. Each under 100 words.` },
+  { id: 'yt-chapters', cat: 'youtube', tags: ['seo', 'chapters'],
+    title: 'Chapter Timestamps + Cards',
+    desc: 'Timestamps and end-card CTAs for a {LABEL} video.',
+    body: `I'm making a {LABEL} YouTube video titled "[TITLE]" about [TOPIC], runtime [DURATION].
+Write: a chapter structure with timestamps, a pinned comment for engagement, an end-card script (15s — related video + subscribe CTA), and a 1-line info-card text to pop at the value peak.` },
+  { id: 'yt-repurpose', cat: 'youtube', tags: ['repurpose', 'multi-platform'],
+    title: 'Repurpose Video into 10 Pieces',
+    desc: 'Turn one {LABEL} video into a week of content.',
+    body: `My {LABEL} YouTube video is titled "[TITLE]", topic [TOPIC], audience {AUD}.
+Repurpose into: 1 Shorts script, 3 Twitter one-liners, 1 LinkedIn post, 2 Instagram captions, 1 newsletter section, 1 Reel hook, and 1 WhatsApp broadcast. Full text for each.` },
+  { id: 'yt-comments', cat: 'youtube', tags: ['engagement', 'comments'],
+    title: 'Pinned Comment + Reply Templates',
+    desc: 'Build comment engagement for {LABEL}.',
+    body: `I run a {LABEL} YouTube channel, audience {AUD}. Video: [TITLE].
+Write: a pinned comment to boost engagement, and 5 reply templates for: a heartfelt thanks, a disagreement, a detailed question, "can you make more?", and a promo comment. Keep all human and warm.` },
+  { id: 'yt-about', cat: 'youtube', tags: ['channel', 'about'],
+    title: 'Channel About Page',
+    desc: 'An "About" page that converts for {LABEL}.',
+    body: `Write a YouTube channel About page for {LABEL}, audience {AUD}. Upload schedule: [SCHEDULE].
+Hook sentence, what the channel covers (3 bullets), who it's for, the unique reason to subscribe, and a CTA. Under 300 words. Natural — no corporate fluff.` },
+
+  // ── Twitter/X (4 new) ──────────────────────────────────────────────────────
+  { id: 'tw-poll', cat: 'twitter', tags: ['poll', 'engagement'],
+    title: 'Twitter/X Polls',
+    desc: '5 engaging polls for {LABEL}.',
+    body: `Write 5 X (Twitter) polls for {LABEL}, audience {AUD}. Topic: [TOPIC].
+Each: the question (under 240 chars), 4 answer options (under 25 chars), and a follow-up tweet to post after results. Make options surprising or playful.` },
+  { id: 'tw-tweetstorm', cat: 'twitter', tags: ['thread', 'deep dive'],
+    title: 'Deep-Dive Tweetstorm',
+    desc: 'A 12-tweet storm for {LABEL}.',
+    body: `Write a 12-tweet tweetstorm about [TOPIC] for {LABEL}, audience {AUD}.
+Tweet 1: bold hook (no link). Tweets 2-10: one insight each, each self-contained. Tweet 11: summary. Tweet 12: CTA to [GOAL]. Under 280 chars each. Number them.` },
+  { id: 'tw-bio', cat: 'twitter', tags: ['bio', 'profile'],
+    title: 'X Profile Bio',
+    desc: '5 punchy bios for {LABEL}.',
+    body: `Write 5 X (Twitter) bios for someone in {LABEL} who helps {AUD} with [WHAT YOU DO]. Each under 160 chars.
+Mix: value-first, personality-first, and credibility-first styles. 1-2 emojis where natural. End with a CTA or hook.` },
+  { id: 'tw-smart-reply', cat: 'twitter', tags: ['engagement', 'growth'],
+    title: 'Smart Reply Templates',
+    desc: '10 reply templates that grow {LABEL} accounts.',
+    body: `Give 10 reply templates for {LABEL} to engage with influencer posts, audience {AUD}, on X.
+Each adds a perspective, stat, or insight — not "great point!" Under 140 chars, smart, likely to get a like or reply from the original poster.` },
+
+  // ── LinkedIn (4 new) ───────────────────────────────────────────────────────
+  { id: 'li-milestone', cat: 'linkedin', tags: ['milestone', 'authority'],
+    title: 'Milestone Post',
+    desc: 'An achievement post that builds credibility in {LABEL}.',
+    body: `Write a LinkedIn milestone post for {LABEL}: [ACHIEVEMENT]. Audience: {AUD}.
+Share without bragging: lead with the hard truth before the win, credit the team/learnings, give a takeaway for peers. Tone: [TONE]. 3 hashtags.` },
+  { id: 'li-newsletter-issue', cat: 'linkedin', tags: ['newsletter', 'thought leadership'],
+    title: 'LinkedIn Newsletter Issue',
+    desc: 'A thought-leadership newsletter post for {LABEL}.',
+    body: `Write a LinkedIn newsletter issue for {LABEL} on [TOPIC], audience {AUD}. Target ~800 words.
+Sections: hook intro (why this matters now), main insight (2-3 H2s), a contrarian take, 3 actionable takeaways, and a closing question for readers. Thought-leadership tone.` },
+  { id: 'li-hiring', cat: 'linkedin', tags: ['hiring', 'talent'],
+    title: 'Job Post That Attracts A-Players',
+    desc: 'A stand-out hiring post for {LABEL}.',
+    body: `Write a LinkedIn job post for {LABEL} hiring [ROLE]. Culture: [CULTURE].
+Lead with who you're looking for (not a duties list), describe the impact they'll have, mention salary [SALARY], and the application process. Human and compelling.` },
+  { id: 'li-video-script', cat: 'linkedin', tags: ['video', 'content'],
+    title: 'LinkedIn Video Script',
+    desc: 'A 90-second video script for {LABEL}.',
+    body: `Write a 90-second LinkedIn video script on [TOPIC] for {LABEL}, audience {AUD}.
+Hook: a surprising fact or question. Body: 2-3 clear takeaways. End: a thought question + soft CTA. Conversational, direct to camera. Include B-roll suggestions.` },
+
+  // ── Personal Brand (5 new) ─────────────────────────────────────────────────
+  { id: 'pb-elevator', cat: 'personal', tags: ['elevator pitch', 'intro'],
+    title: 'Elevator Pitch',
+    desc: '5 30-second intros for someone in {LABEL}.',
+    body: `Write 5 elevator pitch versions (30 seconds each) for someone in {LABEL} who helps {AUD} with [BENEFIT].
+Vary for: formal events, casual networking, podcast intros, video openers, and DM intros. Each punchy, memorable, ending on a hook.` },
+  { id: 'pb-collab-dm', cat: 'personal', tags: ['collab', 'outreach'],
+    title: 'Collab Outreach DM',
+    desc: 'A creator collab pitch for {LABEL}.',
+    body: `Write a DM to pitch a collab with [CREATOR/BRAND] from {LABEL}, audience {AUD}. Collab idea: [COLLAB IDEA].
+Lead with value to them (not "I love your work"), describe the collab in one line, keep under 70 words. Give 3 versions: casual, semi-formal, email.` },
+  { id: 'pb-newsletter-welcome', cat: 'personal', tags: ['newsletter', 'email list'],
+    title: 'Newsletter Welcome Email',
+    desc: 'Turn new subscribers into fans for {LABEL}.',
+    body: `Write a welcome email for {LABEL}'s newsletter. New subscriber is {AUD}.
+Personal tone, set expectations (format + frequency), deliver one quick win on [TOPIC], ask 1 question to personalise future content. Under 200 words — feels like a message from a friend.` },
+  { id: 'pb-series', cat: 'personal', tags: ['series', 'content strategy'],
+    title: 'Weekly Content Series',
+    desc: 'A recurring series concept for {LABEL}.',
+    body: `Invent a weekly recurring content series for {LABEL}, audience {AUD}, goal [GOAL].
+Give: a catchy series name, the format (question/challenge/template/case study), example episode 1, and why people will come back. Works on Instagram, LinkedIn, and YouTube.` },
+  { id: 'pb-paid-offer-launch', cat: 'personal', tags: ['course', 'launch'],
+    title: 'Paid Offer Launch Post',
+    desc: 'A launch post for {LABEL}\'s paid offer.',
+    body: `Write a social post launching [OFFER] from {LABEL} to {AUD}. Price: [PRICE]. Duration: [DURATION]. Transformation: [BEFORE → AFTER].
+Lead with the pain, show the solution, list 3 outcomes, mention a bonus [BONUS] for early birds, and give a clear CTA with deadline. Give Instagram + LinkedIn versions.` },
+
+  // ── Blog (4 new) ───────────────────────────────────────────────────────────
+  { id: 'bl-pillar', cat: 'blog', tags: ['pillar page', 'seo'],
+    title: 'Pillar Page Outline',
+    desc: 'A comprehensive topic hub for {LABEL}.',
+    body: `Outline a pillar page on [TOPIC] for {LABEL}, targeting {AUD}, keyword [KEYWORD].
+Structure: H1, intro, table of contents, 8-10 H2 sections (each with H3 bullets), FAQ (5 questions), and a conclusion CTA. Under 3,000 words. Built for authority ranking.` },
+  { id: 'bl-case-study', cat: 'blog', tags: ['case study', 'social proof'],
+    title: 'Case Study Blog Post',
+    desc: 'A results-driven story for {LABEL}.',
+    body: `Write a case study blog post for {LABEL}: client [CLIENT TYPE], result [RESULT]. Audience: {AUD}.
+Structure: headline with the result, client background, the challenge, the solution, the outcome with numbers, a testimonial quote [QUOTE], and 3 reader takeaways. Scannable.` },
+  { id: 'bl-comparison', cat: 'blog', tags: ['comparison', 'seo'],
+    title: '"A vs B" Comparison Article',
+    desc: 'A ranking comparison post for {LABEL}.',
+    body: `Outline a comparison article: "[OPTION A] vs [OPTION B]: Which Is Better for [TYPE OF PERSON]?" for {LABEL}, keyword [KEYWORD], audience {AUD}.
+Criteria table (5 factors), deep dive on each, clear recommendation, FAQ, and CTA. Balanced, helpful, SEO-ready.` },
+  { id: 'bl-tools-roundup', cat: 'blog', tags: ['tools', 'resource list'],
+    title: 'Tools Roundup Post',
+    desc: 'A "best tools for X" blog for {LABEL}.',
+    body: `Write a "Best tools for {AUD} in {LABEL}" blog outline. Tools: [TOOLS LIST]. Keyword: [KEYWORD].
+For each tool: what it does, best for, pricing, one pro + one con. Add an intro, comparison table, and a top pick conclusion. Under 1,500 words.` },
+
+  // ── Selling (3 new) ────────────────────────────────────────────────────────
+  { id: 'se-waitlist', cat: 'selling', tags: ['pre-launch', 'waitlist'],
+    title: 'Waitlist / Pre-Launch Post',
+    desc: 'Build a waitlist before {LABEL} launches.',
+    body: `Write a pre-launch waitlist post for {LABEL} launching [PRODUCT]. Launch date: [DATE]. Audience: {AUD}.
+Problem it solves, teaser of the solution, waitlist benefit (early access, discount [OFFER], exclusive bonus), and a simple sign-up CTA. Real urgency, no fake scarcity.` },
+  { id: 'se-flash-sale', cat: 'selling', tags: ['flash sale', 'urgency'],
+    title: 'Flash Sale Sequence',
+    desc: 'A 48-hour sale for {LABEL}.',
+    body: `Write a 3-post flash sale sequence for {LABEL} selling [PRODUCT]. Discount: [OFFER]. Duration: 48 hours. Audience: {AUD}.
+Post 1 (launch): the deal + story. Post 2 (24h): social proof + objection answer. Post 3 (2h left): urgency close. Give social caption + WhatsApp broadcast for each.` },
+  { id: 'se-restock', cat: 'selling', tags: ['restock', 'urgency'],
+    title: 'Back in Stock',
+    desc: 'Drive urgency when {LABEL} restocks.',
+    body: `Write a "back in stock" announcement for {LABEL}'s [PRODUCT]. Limited quantity: [NUMBER]. Audience: {AUD}.
+Warm "you asked, we listened" opener, what's new/improved, stock limit creating real urgency, and buy-now CTA. Give Instagram caption + WhatsApp message.` },
+
+  // ── Ads (2 new) ────────────────────────────────────────────────────────────
+  { id: 'ad-retargeting', cat: 'ads', tags: ['retargeting', 'warm leads'],
+    title: 'Retargeting Ad',
+    desc: 'Bring back warm leads for {LABEL}.',
+    body: `Write 3 retargeting ad variations for {LABEL} targeting people who visited [PAGE] but didn't buy [PRODUCT]. Audience: warm leads, {AUD}.
+Variation 1: handle the price objection. Variation 2: add social proof. Variation 3: a limited-time offer [OFFER]. Each: headline + 2-line body + CTA. Familiar, not pushy.` },
+  { id: 'ad-native', cat: 'ads', tags: ['native', 'content ad'],
+    title: 'Native Content Ad',
+    desc: 'An ad that looks like organic content for {LABEL}.',
+    body: `Write a native-style ad for {LABEL} promoting [PRODUCT] on [PLATFORM], audience {AUD}.
+Make it look like organic content — an educational tip, a story, or a list — with the product as the natural solution. Headline + 150-word body + CTA. Zero "ad-y" language.` },
+
+  // ── Email (2 new) ──────────────────────────────────────────────────────────
+  { id: 'em-winback', cat: 'email', tags: ['re-engagement', 'win-back'],
+    title: 'Win-Back Email',
+    desc: 'Re-engage cold subscribers for {LABEL}.',
+    body: `Write a re-engagement email to {LABEL} subscribers who haven't opened in [DURATION]. Audience: {AUD}.
+Subject: acknowledges the gap without guilt. Body: a reason to return (new [OFFER/CONTENT]), a 2-option poll ("still in?" or "unsubscribe"), and a warm sign-off. Short, honest, personal.` },
+  { id: 'em-digest', cat: 'email', tags: ['digest', 'newsletter'],
+    title: 'Weekly Digest Email',
+    desc: 'A curated weekly email for {LABEL}.',
+    body: `Write a weekly digest email template for {LABEL}, audience {AUD}. Theme: [THEME].
+Sections: a personal 3-sentence note, top 3 [TOPIC] tips, 1 tool/resource, 1 insight worth knowing, and a question to reply with. Friendly, scannable, under 300 words.` },
+
+  // ── Brand Deals (3 new) ────────────────────────────────────────────────────
+  { id: 'bd-ratecard', cat: 'deals', tags: ['rate card', 'media kit'],
+    title: 'Media Kit Intro Message',
+    desc: 'A confident media kit cover for {LABEL}.',
+    body: `Write a media kit cover message for a {LABEL} creator with [FOLLOWERS] followers, audience {AUD}, engagement rate [RATE].
+Include: audience snapshot, deliverables on offer, starting rate [PRICE RANGE], past brand examples [BRANDS], and CTA to schedule a call. Professional, confident.` },
+  { id: 'bd-invoice-followup', cat: 'deals', tags: ['payment', 'follow-up'],
+    title: 'Payment Follow-Up',
+    desc: 'Professional payment chasing for {LABEL}.',
+    body: `Write 3 payment follow-up messages for {LABEL} after delivering content for [BRAND]. Invoice: [PRICE]. Overdue by [DAYS].
+Message 1 (1 day): friendly reminder. Message 2 (1 week): firmer, reference deliverables. Message 3 (2 weeks): final notice before escalation. Professional, not aggressive.` },
+  { id: 'bd-counter', cat: 'deals', tags: ['negotiation', 'counter-offer'],
+    title: 'Counter-Offer Response',
+    desc: 'Negotiate better rates for {LABEL}.',
+    body: `Write a counter-offer reply for {LABEL} when a brand offered [THEIR OFFER], but my rate is [MY RATE]. Deliverables: [DELIVERABLES]. Audience: {AUD}.
+3 options: accept with added value (extra deliverable), propose a middle ground with rationale, or decline gracefully while leaving the door open. Confident, professional.` },
+
+  // ── Local (3 new) ──────────────────────────────────────────────────────────
+  { id: 'lo-referral', cat: 'local', tags: ['referral', 'word of mouth'],
+    title: 'Referral Programme',
+    desc: 'Get customers referring others for {LABEL}.',
+    body: `Write a referral programme message for {LABEL} in [CITY], audience {AUD}. Reward: [REWARD].
+Give a WhatsApp message to send to happy customers, a social caption to announce it, and the programme terms in plain language. Make referring feel easy and rewarding.` },
+  { id: 'lo-festival-local', cat: 'local', tags: ['local', 'festival'],
+    title: 'Local Festival Post',
+    desc: 'A hyperlocal festive post for {LABEL}.',
+    body: `Write a [FESTIVAL] post for {LABEL} in [CITY], audience {AUD}. Offer: [OFFER].
+Tie the festival to the local community. Give: a social caption + a WhatsApp broadcast + 4 festive hashtags with local flavour. Feel like it's from a neighbour, not a brand.` },
+  { id: 'lo-google-campaign', cat: 'local', tags: ['google', 'reviews'],
+    title: 'Google Review Campaign',
+    desc: 'Get more reviews for {LABEL}.',
+    body: `Design a 30-day Google Review campaign for {LABEL} in [CITY]. Target: [NUMBER] new reviews.
+Give: a WhatsApp message to send post-purchase, a QR card text, a staff script for in-person asks, and a thank-you reply template for positive + critical reviews. No fake review tactics.` },
+
+  // ── Coaching (3 new) ───────────────────────────────────────────────────────
+  { id: 'co-transformation', cat: 'coaching', tags: ['transformation', 'results'],
+    title: 'Client Transformation Story',
+    desc: 'Share a client win for {LABEL}.',
+    body: `Write a client transformation story for {LABEL}. Client type: [CLIENT TYPE]. Before: [BEFORE STATE]. After: [AFTER RESULT]. Time: [DURATION].
+Tell it in the client's voice, name the turning point, credit the method. Give Instagram caption + LinkedIn version + 3-tweet thread. Genuine, not hype.` },
+  { id: 'co-discovery', cat: 'coaching', tags: ['discovery call', 'sales'],
+    title: 'Discovery Call Invite',
+    desc: 'Book more calls for {LABEL}.',
+    body: `Write a discovery call invite for {LABEL}, audience {AUD}. Offer: [OFFER]. Price: [PRICE].
+DM version (under 60 words), email version (under 150 words), and a social caption. Frame it as a "fit check", not a sales call. Easy and pressure-free to say yes.` },
+  { id: 'co-challenge', cat: 'coaching', tags: ['challenge', 'community'],
+    title: '5-Day Challenge Launch',
+    desc: 'A free challenge that fills {LABEL}\'s paid programme.',
+    body: `Design a 5-day free challenge for {LABEL}: topic [TOPIC], audience {AUD}, leads toward [PAID OFFER].
+For each day: theme, task, and what participants share. Plus: the registration post, a daily DM reminder, and a Day 5 pitch to [PAID OFFER]. High energy, quick wins throughout.` },
+
+  // ── Plan (4 new) ───────────────────────────────────────────────────────────
+  { id: 'pl-repurpose', cat: 'plan', tags: ['repurpose', 'efficiency'],
+    title: 'Repurpose One Piece into 10',
+    desc: 'Turn 1 piece of content into a week of posts for {LABEL}.',
+    body: `I created [TYPE OF CONTENT] about [TOPIC] for {LABEL}, audience {AUD}.
+Repurpose into: Reel (hook + script), carousel (5-slide outline), 5 tweets, LinkedIn post, email, WhatsApp broadcast, 2 quote graphics, YouTube Short, and blog intro. Full text for each.` },
+  { id: 'pl-batchday', cat: 'plan', tags: ['batching', 'productivity'],
+    title: 'Content Batching Day Plan',
+    desc: 'A full batch session for {LABEL}.',
+    body: `Plan a 6-hour content batching session for {LABEL}, audience {AUD}, posting [FREQUENCY].
+Prep list for the day before, a timed schedule (writing, filming, editing, scheduling), [NUMBER] captions to write, [NUMBER] Reels to film, and tools for each step. No wasted time.` },
+  { id: 'pl-audit', cat: 'plan', tags: ['audit', 'strategy'],
+    title: 'Content Audit Checklist',
+    desc: 'Find what\'s working for {LABEL}.',
+    body: `Create a content audit for {LABEL} on [PLATFORM], audience {AUD}.
+Give: 5 metrics to check (reach, saves, shares, link-clicks, DMs), a scoring template, questions to ask about top performers, and a 3-action plan — double down on what works, cut what doesn't.` },
+  { id: 'pl-launch-plan', cat: 'plan', tags: ['launch', 'calendar'],
+    title: '30-Day Launch Plan',
+    desc: 'A week-by-week launch strategy for {LABEL}.',
+    body: `Create a 30-day content launch plan for {LABEL} launching [PRODUCT] to {AUD}. Price: [PRICE]. Goal: [NUMBER] sales.
+Week 1: awareness. Week 2: education. Week 3: social proof. Week 4: urgency + close. Each week: 4 post ideas, 2 story ideas, 1 email/broadcast. Doable solo.` },
+
+  // ── Design (3 new) ─────────────────────────────────────────────────────────
+  { id: 'de-canva-brief', cat: 'design', tags: ['canva', 'template'],
+    title: 'Canva Design Brief',
+    desc: 'A clear brief for building Canva templates for {LABEL}.',
+    body: `Write a Canva design brief for {LABEL}. Purpose: [PURPOSE]. Brand colours: [COLOURS]. Font style: [STYLE].
+Include: dimensions needed, mood/vibe, layout ideas for each frame, what text to include, and imagery direction (photo/illustration/minimal). Ready to hand to a designer or build yourself.` },
+  { id: 'de-logo-brief', cat: 'design', tags: ['logo', 'branding'],
+    title: 'Logo Design Brief',
+    desc: 'A brief to get the right logo for {LABEL}.',
+    body: `Write a logo design brief for {LABEL}. Brand name: [BRAND NAME]. Values: [VALUES]. Audience: {AUD}. Style: [STYLE].
+Include: tagline (optional), style references (not copies), what to avoid, colour direction, and formats needed (social, print, dark/light version). For Fiverr, Canva, or a local designer.` },
+  { id: 'de-brand-guide', cat: 'design', tags: ['brand kit', 'consistency'],
+    title: 'Brand Style Guide',
+    desc: 'Define the visual identity for {LABEL}.',
+    body: `Help define a basic brand style guide for {LABEL}, audience {AUD}. Current look: [DESCRIBE CURRENT LOOK].
+Give: primary + secondary colours (with hex codes), font pairing (heading + body), icon/illustration style, image do's and don'ts, and a tone-of-voice summary. One-page practical reference.` },
+
+  // ── Podcast (4 new) ────────────────────────────────────────────────────────
+  { id: 'pod-teaser', cat: 'podcast', tags: ['teaser', 'episode promo'],
+    title: 'Episode Teaser Post',
+    desc: 'Build anticipation before an episode drops for {LABEL}.',
+    body: `Write a teaser post for a {LABEL} podcast episode: [TOPIC], guest [GUEST], drops [DATE].
+Include: the cliffhanger or surprising insight, 3 listener takeaways in bullets, a pull quote [QUOTE], and a CTA to subscribe/notify. Give Instagram caption + X post + LinkedIn.` },
+  { id: 'pod-shownotes', cat: 'podcast', tags: ['show notes', 'seo'],
+    title: 'Show Notes Writer',
+    desc: 'SEO-friendly show notes for {LABEL}.',
+    body: `Write show notes for a {LABEL} podcast: "[EPISODE TITLE]". Guest: [GUEST]. Key topics: [TOPICS]. Audience: {AUD}.
+Episode summary (under 100 words), chapter outline with timestamps, 5 key takeaways, guest bio + links, 3 quote pulls, and a CTA. Under 600 words. SEO keyword: [KEYWORD].` },
+  { id: 'pod-solo', cat: 'podcast', tags: ['solo', 'monologue'],
+    title: 'Solo Episode Outline',
+    desc: 'A tight solo episode for {LABEL}.',
+    body: `Outline a solo podcast episode on [TOPIC] for {LABEL}, audience {AUD}. Length: [DURATION].
+Hook (shocking stat or question), why this matters now, [NUMBER] main sections with sub-points, a personal story connecting to [TOPIC], 3 actionable takeaways, and a closing ask for [REVIEW/SHARE/FOLLOW].` },
+  { id: 'pod-monetize', cat: 'podcast', tags: ['sponsorship', 'monetization'],
+    title: 'Sponsor Read Script',
+    desc: 'A mid-roll ad listeners don\'t skip for {LABEL}.',
+    body: `Write a 60-second mid-roll sponsor read for {LABEL} podcast, sponsored by [BRAND]. Product: [PRODUCT]. Offer: [OFFER] at [CODE].
+Personal (how the host uses it), 1 specific benefit, the offer clearly stated, and a natural bridge back to the episode. Host-read style, not announcer.` },
+]
+
+// 25 major Indian cities — city-specific niche variants generated in build-data.mjs
+export const CITIES = [
+  ['mumbai', 'Mumbai'],
+  ['delhi', 'Delhi'],
+  ['bangalore', 'Bengaluru'],
+  ['hyderabad', 'Hyderabad'],
+  ['chennai', 'Chennai'],
+  ['pune', 'Pune'],
+  ['kolkata', 'Kolkata'],
+  ['ahmedabad', 'Ahmedabad'],
+  ['jaipur', 'Jaipur'],
+  ['lucknow', 'Lucknow'],
+  ['surat', 'Surat'],
+  ['chandigarh', 'Chandigarh'],
+  ['kochi', 'Kochi'],
+  ['indore', 'Indore'],
+  ['nagpur', 'Nagpur'],
+  ['bhopal', 'Bhopal'],
+  ['patna', 'Patna'],
+  ['coimbatore', 'Coimbatore'],
+  ['vadodara', 'Vadodara'],
+  ['agra', 'Agra'],
+  ['varanasi', 'Varanasi'],
+  ['amritsar', 'Amritsar'],
+  ['goa', 'Goa'],
+  ['mysore', 'Mysuru'],
+  ['dehradun', 'Dehradun'],
 ]
