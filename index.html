@@ -371,14 +371,10 @@
     }
 
     /* ── Tip jar ─────────────────────────────────────────────────────────────── */
-    .tip-fab{position:fixed;bottom:28px;right:28px;z-index:80;display:flex;align-items:center;gap:9px;
-      background:linear-gradient(135deg,#FFBE00,#FF8C00);color:#fff;border:none;border-radius:999px;
-      padding:13px 22px;font-size:14px;font-weight:700;cursor:pointer;letter-spacing:-0.01em;
-      box-shadow:0 6px 28px rgba(255,140,0,.40);transition:transform .2s,box-shadow .2s;font-family:var(--font);}
-    .tip-fab:hover{transform:translateY(-3px) scale(1.04);box-shadow:0 12px 40px rgba(255,140,0,.52);}
-    .tip-fab-pulse{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.9);
-      box-shadow:0 0 0 0 rgba(255,255,255,.5);animation:tipPulse 2s ease-in-out infinite;}
-    @keyframes tipPulse{0%{box-shadow:0 0 0 0 rgba(255,255,255,.6);}70%{box-shadow:0 0 0 9px rgba(255,255,255,0);}100%{box-shadow:0 0 0 0 rgba(255,255,255,0);}}
+    .tip-nav-btn{display:inline-flex;align-items:center;gap:6px;background:var(--bg-tint);color:var(--text-2);
+      padding:6px 13px;border-radius:999px;font-size:12.5px;font-weight:600;border:1px solid var(--border);
+      cursor:pointer;transition:all .15s;font-family:var(--font);letter-spacing:-0.01em;}
+    .tip-nav-btn:hover{background:#FEF9C3;border-color:#FCD34D;color:#92400E;}
 
     .tip-backdrop{position:fixed;inset:0;z-index:99;background:rgba(20,20,28,.52);backdrop-filter:blur(10px);
       -webkit-backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;padding:24px;animation:fade .2s ease;}
@@ -389,10 +385,11 @@
       display:flex;align-items:center;justify-content:center;transition:background .15s;}
     .tip-close:hover{background:#E6E6EC;color:var(--text);}
 
-    .tip-header{text-align:center;margin-bottom:26px;}
+    .tip-header{text-align:center;margin-bottom:20px;}
     .tip-emoji{font-size:48px;display:block;margin-bottom:12px;line-height:1;}
     .tip-card h2{font-size:22px;font-weight:720;letter-spacing:-0.03em;color:var(--text);}
     .tip-header p{font-size:14px;color:var(--text-2);margin-top:7px;line-height:1.55;}
+    .tip-pick-label{font-size:12px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;}
 
     .tip-amounts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;}
     .tip-amount-btn{height:54px;border-radius:14px;border:2px solid var(--border-2);background:#fff;
@@ -414,8 +411,8 @@
     .tip-pay-btn:active{transform:scale(.98);}
     .tip-pay-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;}
 
-    .tip-desktop-pay{display:flex;flex-direction:column;gap:10px;}
-    .tip-upi-box{display:flex;align-items:center;gap:10px;background:var(--bg-sub);border:1px solid var(--border);border-radius:12px;padding:12px 14px;}
+    .tip-upi-row{display:flex;flex-direction:column;gap:8px;margin-top:14px;}
+    .tip-upi-box{display:flex;align-items:center;gap:10px;background:var(--bg-sub);border:1px solid var(--border);border-radius:12px;padding:11px 14px;}
     .tip-upi-label{font-size:11px;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.05em;min-width:90px;}
     .tip-upi-value{flex:1;font-size:13.5px;font-weight:600;color:var(--text);font-family:var(--mono);}
     .tip-copy-btn{font-size:12px;font-weight:650;padding:5px 12px;border-radius:8px;background:var(--bg-tint);
