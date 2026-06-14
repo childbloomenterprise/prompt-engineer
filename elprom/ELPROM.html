@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" data-accent="indigo">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>ELPROM — Start from what works.</title>
+  <meta name="description" content="Type one line. Get a whole week of proven, ready-to-post content — words and visuals." />
+  <script>try{document.documentElement.setAttribute('data-theme',localStorage.getItem('el_theme')||'dark')}catch(e){}</script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;430;480;520;560;600;680&family=JetBrains+Mono:wght@500;700&family=Fira+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/frames.css" />
+  <link rel="stylesheet" href="css/landing.css" />
+  <link rel="stylesheet" href="css/app.css" />
+</head>
+<body>
+  <div id="root"></div>
+
+  <!-- Production React, JSX pre-compiled with esbuild (no in-browser Babel). -->
+  <script src="https://cdn.jsdelivr.net/npm/react@18.3.1/umd/react.production.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
+
+  <!-- Real proven-framework data layer (650K blueprints) -->
+  <script src="../promptundo-data.js"></script>
+
+  <script src="js/components.build.js"></script>
+  <script src="js/frames.build.js"></script>
+  <script src="js/data.build.js"></script>
+  <script src="js/engine.build.js"></script>
+  <script src="js/landing.build.js"></script>
+  <script src="js/result.build.js"></script>
+  <script src="js/dashboard.build.js"></script>
+  <script src="js/tweaks-panel.build.js"></script>
+  <script src="js/app.build.js"></script>
+</body>
+</html>

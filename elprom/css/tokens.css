@@ -1,0 +1,189 @@
+/* =========================================================================
+   ELPROM — Design Tokens (single source of truth)
+   One system, not two. Every color/space/radius/shadow/motion is named here.
+   ========================================================================= */
+
+:root {
+  /* ---- Color — Light (default) ---- */
+  --bg:#F7F7FC;
+  --surface:#FFFFFF;
+  --surface-2:#FAFAFF;
+  --tint:#EFEFF6;
+  --text:#1D1D1F;
+  --text-2:#62626B;
+  --text-3:#9A9AA2;
+  --border:#E8E8F0;
+  --border-2:#D8D8E4;
+  --accent:#5E5CE6;
+  --accent-press:#4A48CC;
+  --accent-soft:#ECECFB;
+  --accent-ring:rgba(94,92,230,.28);
+  --energy-from:#FFBE00;
+  --energy-to:#F97316;
+  --ok:#1F9A5B;
+  --danger:#E5484D;
+
+  /* ---- Glass ---- */
+  --glass-bg:rgba(255,255,255,.72);
+  --glass-border:linear-gradient(135deg, rgba(255,255,255,.9), rgba(94,92,230,.18) 40%, rgba(249,115,22,.16));
+  --glass-blur:blur(22px) saturate(200%);
+
+  /* ---- Aurora / mesh accents ---- */
+  --aurora-1:rgba(94,92,230,.30);
+  --aurora-2:rgba(249,115,22,.20);
+  --aurora-3:rgba(255,190,0,.18);
+  --aurora-4:rgba(124,122,239,.22);
+
+  /* ---- Spacing (8px baseline grid) ---- */
+  --s-4:4px;  --s-8:8px;  --s-12:12px; --s-16:16px; --s-20:20px;
+  --s-24:24px; --s-32:32px; --s-40:40px; --s-56:56px; --s-72:72px; --s-96:96px;
+
+  /* ---- Radius ---- */
+  --r-sm:12px; --r-md:16px; --r-lg:22px; --r-xl:26px; --r-pill:999px;
+
+  /* ---- Shadow ---- */
+  --sh-sm:0 1px 3px rgba(17,17,26,.06);
+  --sh-md:0 12px 38px rgba(17,17,26,.09);
+  --sh-lg:0 32px 80px rgba(17,17,26,.22);
+  --sh-accent:0 18px 50px -12px rgba(94,92,230,.5);
+
+  /* ---- Motion ---- */
+  --ease:cubic-bezier(.2,.7,.3,1);
+  --ease-out:cubic-bezier(.16,1,.3,1);
+  --d-fast:150ms; --d-base:250ms; --d-slow:400ms; --d-entrance:600ms;
+
+  /* ---- Z-index scale ---- */
+  --z-base:0; --z-sticky:50; --z-nav:60; --z-dropdown:70; --z-modal:100; --z-toast:300;
+
+  /* ---- Control heights ---- */
+  --h-sm:34px; --h-md:40px; --h-lg:50px;
+
+  /* ---- Fonts ---- */
+  --font-display:"Schibsted Grotesk", "Inter", system-ui, sans-serif;
+  --font-body:"Inter", system-ui, -apple-system, sans-serif;
+  --font-mono:"JetBrains Mono", ui-monospace, monospace;
+}
+
+[data-theme="dark"] {
+  --bg:#0C0C16;
+  --surface:#141420;
+  --surface-2:#1C1C2C;
+  --tint:#1C1C2C;
+  --text:#F0F0F7;
+  --text-2:#9898B0;
+  --text-3:#55556A;
+  --border:#262638;
+  --border-2:#32324A;
+  --accent:#7C7AEF;
+  --accent-press:#6260E0;
+  --accent-soft:#211F3A;
+  --accent-ring:rgba(124,122,239,.34);
+  --ok:#34C77B;
+  --danger:#FF6166;
+
+  --glass-bg:rgba(20,20,36,.78);
+  --glass-border:linear-gradient(135deg, rgba(124,122,239,.42), rgba(124,122,239,.12) 45%, rgba(249,115,22,.18));
+
+  --aurora-1:rgba(124,122,239,.34);
+  --aurora-2:rgba(249,115,22,.18);
+  --aurora-3:rgba(255,190,0,.12);
+  --aurora-4:rgba(94,92,230,.30);
+
+  --sh-sm:0 1px 3px rgba(0,0,0,.4);
+  --sh-md:0 12px 38px rgba(0,0,0,.45);
+  --sh-lg:0 32px 80px rgba(0,0,0,.6);
+  --sh-accent:0 18px 50px -12px rgba(124,122,239,.55);
+}
+
+/* ---- Accent override hook (tweak) ---- */
+[data-accent="indigo"]  { --accent:#5E5CE6; --accent-press:#4A48CC; --accent-ring:rgba(94,92,230,.28); }
+[data-accent="violet"]  { --accent:#7C5CFF; --accent-press:#6038F0; --accent-ring:rgba(124,92,255,.3); }
+[data-accent="blue"]    { --accent:#2A6FDB; --accent-press:#1F57B5; --accent-ring:rgba(42,111,219,.3); }
+[data-accent="emerald"] { --accent:#11A668; --accent-press:#0C8A55; --accent-ring:rgba(17,166,104,.3); }
+[data-theme="dark"][data-accent="indigo"]  { --accent:#7C7AEF; }
+[data-theme="dark"][data-accent="violet"]  { --accent:#9B82FF; }
+[data-theme="dark"][data-accent="blue"]    { --accent:#5B92F0; }
+[data-theme="dark"][data-accent="emerald"] { --accent:#34C77B; }
+
+/* =========================================================================
+   Base + reset
+   ========================================================================= */
+*, *::before, *::after { box-sizing:border-box; }
+html { -webkit-text-size-adjust:100%; }
+body {
+  margin:0;
+  font-family:var(--font-body);
+  background:var(--bg);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+button { font-family:inherit; }
+::selection { background:var(--accent-soft); color:var(--accent-press); }
+
+[data-theme="dark"] ::selection { background:var(--accent-soft); color:var(--text); }
+
+/* =========================================================================
+   Type scale
+   ========================================================================= */
+.t-display {
+  font-family:var(--font-display);
+  font-weight:700;
+  font-size:clamp(35px, 6.2vw, 56px);
+  letter-spacing:-0.038em;
+  line-height:1.04;
+}
+.t-h1 { font-family:var(--font-display); font-weight:700; font-size:clamp(30px,4.4vw,38px); letter-spacing:-0.03em; line-height:1.08; }
+.t-h2 { font-family:var(--font-display); font-weight:680; font-size:24px; letter-spacing:-0.02em; line-height:1.16; }
+.t-h3 { font-family:var(--font-display); font-weight:660; font-size:18px; letter-spacing:-0.014em; line-height:1.3; }
+.t-body { font-size:16px; font-weight:430; line-height:1.55; }
+.t-small { font-size:14px; font-weight:480; line-height:1.5; }
+.t-label { font-size:12px; font-weight:680; letter-spacing:.08em; text-transform:uppercase; }
+.t-mono-stat { font-family:var(--font-mono); font-weight:700; font-size:clamp(28px,4vw,38px); letter-spacing:-0.02em; }
+
+.text-2 { color:var(--text-2); }
+.text-3 { color:var(--text-3); }
+.text-accent { color:var(--accent); }
+
+/* =========================================================================
+   Layout helpers
+   ========================================================================= */
+.container { max-width:1200px; margin:0 auto; padding-inline:24px; }
+@media (max-width:640px){ .container{ padding-inline:16px; } }
+.section { padding-block:84px; }
+@media (max-width:640px){ .section{ padding-block:60px; } }
+.stack { display:flex; flex-direction:column; }
+.row { display:flex; align-items:center; }
+.gap-8{ gap:8px;} .gap-12{ gap:12px;} .gap-16{ gap:16px;} .gap-24{ gap:24px;} .gap-32{ gap:32px;}
+
+/* =========================================================================
+   Aurora / mesh background
+   ========================================================================= */
+.aurora { position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+.aurora::before, .aurora::after {
+  content:""; position:absolute; border-radius:50%;
+  filter:blur(90px); opacity:.5;
+}
+.aurora::before {
+  width:60vw; height:60vw; top:-22vw; left:-10vw;
+  background:radial-gradient(circle at 30% 30%, var(--aurora-1), transparent 60%);
+  animation:auroraDrift 22s var(--ease) infinite alternate;
+}
+.aurora::after {
+  width:55vw; height:55vw; top:-8vw; right:-14vw;
+  background:radial-gradient(circle at 60% 40%, var(--aurora-2), transparent 60%);
+  animation:auroraDrift2 26s var(--ease) infinite alternate;
+}
+@keyframes auroraDrift  { to { transform:translate3d(6vw,4vw,0) scale(1.1); } }
+@keyframes auroraDrift2 { to { transform:translate3d(-5vw,6vw,0) scale(1.08); } }
+
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after { animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important; }
+}
+
+/* Focus ring (accessibility) */
+:where(a,button,input,textarea,[tabindex]):focus-visible {
+  outline:2px solid var(--accent);
+  outline-offset:2px;
+  border-radius:6px;
+}
